@@ -1,0 +1,81 @@
+----86exw134e:
+
+SELECT
+    E.FNAME || ' ' || E.LNAME  AS Employee_Name,
+    D.DNAME                      AS Department,
+    P.PNAME                      AS Project_Name
+FROM  EMPLOYEE   E
+JOIN  DEPARTMENT D  ON E.DNO  = D.DNUMBER
+JOIN  WORKS_ON   W  ON E.SSN  = W.ESSN
+JOIN  PROJECT    P  ON W.PNO  = P.PNUMBER;
+
+-------
+SELECT column_name 
+FROM user_tab_columns 
+WHERE table_name = 'DEPARTMENT';
+--
+SELECT column_name 
+FROM user_tab_columns 
+WHERE table_name = 'EMPLOYEE';
+-------
+
+SELECT E.FNAME || ' ' || E.LNAME AS Employee_Name,
+       D.DNAME                   AS Department,
+       P.PNAME                   AS Project_Name
+FROM   EMPLOYEE   E
+JOIN   DEPARTMENT D ON E.DNUM  = D.DNUM
+JOIN   WORKS_ON   W ON E.SSN   = W.ESSN
+JOIN   PROJECT    P ON W.PNO   = P.PNUMBER;
+-----
+SELECT column_name FROM user_tab_columns WHERE table_name = 'WORKS_ON';
+SELECT column_name FROM user_tab_columns WHERE table_name = 'PROJECT';
+-------
+SELECT E.FNAME || ' ' || E.LNAME AS Employee_Name,
+       D.DNAME                   AS Department,
+       P.PNAME                   AS Project_Name
+FROM   EMPLOYEE   E
+JOIN   DEPARTMENT D ON E.DNUM    = D.DNUM
+JOIN   WORKS_ON   W ON E.SSN     = W.SSN
+JOIN   PROJECT    P ON W.PNUMBER = P.PNUMBER;
+--------
+SELECT column_name FROM user_tab_columns WHERE table_name = 'DEPENDENT';
+---
+SELECT E.FNAME || ' ' || E.LNAME AS Employee_Name,
+       D.DNAME                   AS Department,
+       Dep.DEPENDENT_NAME        AS Dependent,
+       Dep.RELATIONSHIP
+FROM   EMPLOYEE   E
+JOIN   DEPARTMENT D   ON E.DNUM = D.DNUM
+LEFT JOIN DEPENDENT Dep ON E.SSN  = Dep.SSN;
+--------
+SELECT column_name FROM user_tab_columns WHERE table_name = 'DEPENDENT';
+----
+SELECT P.PNAME                   AS Project_Name,
+       D.DNAME                   AS Department,
+       E.FNAME || ' ' || E.LNAME AS Employee_Name,
+       W.HOURS
+FROM   EMPLOYEE   E
+JOIN   WORKS_ON   W ON E.SSN     = W.SSN
+RIGHT JOIN PROJECT    P ON W.PNUMBER = P.PNUMBER
+JOIN   DEPARTMENT D ON P.DNUM   = D.DNUM;
+---
+SELECT column_name FROM user_tab_columns WHERE table_name = 'EMPLOYEE';
+------
+SELECT E1.FNAME || ' ' || E1.LNAME AS Employee_Name,
+       E2.FNAME || ' ' || E2.LNAME AS Colleague_Name,
+       D.DNAME                     AS Department
+FROM   EMPLOYEE   E1
+JOIN   EMPLOYEE   E2 ON E1.DNUM = E2.DNUM
+                     AND E1.SSN  <> E2.SSN
+JOIN   DEPARTMENT D  ON E1.DNUM = D.DNUM
+ORDER BY Employee_Name;
+--------
+SELECT E1.FNAME || ' ' || E1.LNAME AS Employee_Name,
+       E2.FNAME || ' ' || E2.LNAME AS Colleague_Name,
+       D.DNAME                     AS Department
+FROM   EMPLOYEE   E1
+JOIN   EMPLOYEE   E2 ON E1.SSN <> E2.SSN
+JOIN   DEPARTMENT D  ON E1.DNUM = D.DNUM
+ORDER BY Employee_Name;
+
+-------
