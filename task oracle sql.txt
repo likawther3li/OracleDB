@@ -1,0 +1,63 @@
+Q1:
+ -Analysis of Results
+
+The query returned 11 rows. Although results were returned, the relationship between employees and departments is incorrect because employee_id was matched with department_id. The returned data is coincidental and does not represent the actual department assignment of employees.
+
+-Issue:
+
+Incorrect JOIN condition. The query joins employee_id with department_id, which are unrelated columns.
+
+-Explanation:
+
+Employees are assigned to departments through the department_id column. Therefore, 
+the correct relationship is e.department_id = d.department_id. 
+This ensures that each employee is matched with their actual department.
+
+Q2:
+Analysis of Results:
+
+The query returned valid results. The relationship between employees and jobs is
+correctly established using job_id, which links each employee to their corresponding job title.
+
+Issue:
+No issue in the JOIN condition.
+The relationship is correctly defined using e.job_id = j.job_id,
+which is the proper foreign key relationship between the two tables.
+
+Summary :
+
+employees.job_id ← FK 
+jobs.job_id ← PK
+
+Q3:
+Analysis of Results
+
+The query returned 34 rows. The relationship between employees and departments 
+is correctly established using department_id, which links each employee to their assigned department.
+
+However, because the condition WHERE d.department_name = 'Sales' is applied, the query only 
+displays employees who belong to the Sales department. The LEFT JOIN is effectively behaving like an
+ INNER JOIN in this case because rows with NULL department values are filtered out by the WHERE clause.
+
+
+Issue:
+
+No issue in the JOIN condition. The relationship e.department_id = d.department_id is correct.
+
+However, the use of LEFT JOIN together with WHERE d.department_name = 'Sales' removes NULL 
+results from the right table, which reduces the LEFT JOIN to an INNER JOIN behavior.
+
+Q4:
+Analysis of Results:
+
+The query returned 106 rows. The relationship between employees and their managers is correctly established using a self-join on the employees table.
+
+Each employee (e) is matched with their manager (m) by linking e.manager_id to m.employee_id, which correctly represents the reporting hierarchy in the organization.
+
+
+ Issue:
+
+No issue in the JOIN condition. The relationship is correctly defined using a self-join:
+e.manager_id → refers to the employee’s manager
+m.employee_id → identifies the manager in the same table
+
